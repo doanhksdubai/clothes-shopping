@@ -6,7 +6,12 @@ import vn.nhom18.shoppingclothes.domain.User;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD
 import org.springframework.data.jpa.repository.EntityGraph;
+=======
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+>>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -64,6 +69,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT * FROM shopping.orders WHERE YEAR(order_date) = YEAR(CURRENT_DATE) ORDER BY order_date DESC LIMIT 5", nativeQuery = true)
     List<Order> getCurrentOrderByYear();
 
+<<<<<<< HEAD
     // Tìm đơn hàng theo userId
     @EntityGraph(attributePaths = "orderDetails")
     List<Order> findByUserId(long userId);
@@ -76,4 +82,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<Order> findByUserId(long userId, Pageable pageable);
 
 
+=======
+    Page<Order> findAll(Pageable pageable);
+>>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
 }
