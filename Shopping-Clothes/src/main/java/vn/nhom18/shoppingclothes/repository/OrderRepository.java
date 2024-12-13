@@ -5,6 +5,8 @@ import vn.nhom18.shoppingclothes.domain.User;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -58,4 +60,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // lấy đơn hàng gần nhất theo năm
     @Query(value = "SELECT * FROM shopping.orders WHERE YEAR(order_date) = YEAR(CURRENT_DATE) ORDER BY order_date DESC LIMIT 5", nativeQuery = true)
     List<Order> getCurrentOrderByYear();
+
+    Page<Order> findAll(Pageable pageable);
 }

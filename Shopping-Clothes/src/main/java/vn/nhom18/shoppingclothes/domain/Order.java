@@ -1,6 +1,7 @@
 package vn.nhom18.shoppingclothes.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -43,6 +45,9 @@ public class Order {
     private String receiverName;
     private String receiverAddress;
     private String receiverPhone;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> orderDetails;
 
     public long getId() {
         return id;
@@ -114,6 +119,14 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
 }
