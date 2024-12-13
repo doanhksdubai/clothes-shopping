@@ -193,8 +193,9 @@
             <div class="container-category">
                 <!-- Sidebar -->
                 <div class="sidebar">
-                    <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars"></i> Thu gọn</button>
-                    <div class="list-group" id="category-list">
+                    <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars" style="margin-top: 3px;"></i> Thu
+                        gọn</button>
+                    <div class=" list-group" id="category-list">
                         <c:forEach var="category" items="${categories}">
                             <a href="${pageContext.request.contextPath}/categories/${category.id}/products?page=0"
                                 class="list-group-item list-group-item-action ${category.id == category.id ? 'active' : ''}">
@@ -226,7 +227,7 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <nav aria-label="Page navigation">
+                        <nav aria-label="Page navigation" style="text-align: center;">
                             <ul class="pagination justify-content-center">
                                 <c:forEach begin="0" end="${totalPages - 1}" var="i">
                                     <li class="page-item ${i == currentPage ? 'active' : ''}">
@@ -265,10 +266,10 @@
                 toggleBtn.addEventListener('click', () => {
                     if (categoryList.style.display === 'none') {
                         categoryList.style.display = 'block';
-                        toggleBtn.innerHTML = '<i class="fas fa-bars"></i> Thu gọn';
+                        toggleBtn.innerHTML = '<i class="fas fa-bars" style="margin-top: 3px;"></i> Thu gọn';
                     } else {
                         categoryList.style.display = 'none';
-                        toggleBtn.innerHTML = '<i class="fas fa-bars"></i> Hiện danh mục';
+                        toggleBtn.innerHTML = '<i class="fas fa-bars" style="margin-top: 3px;"></i> Hiện danh mục';
                     }
                 });
             </script>

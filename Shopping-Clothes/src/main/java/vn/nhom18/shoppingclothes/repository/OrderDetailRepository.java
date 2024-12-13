@@ -55,4 +55,9 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
     // lấy sản phẩm bán chạy theo năm
     @Query(value = "SELECT od.product_detail_id, od.price, SUM(od.price * od.quantity) AS total_revenue, SUM(od.quantity) AS total_quantity FROM shopping.orders o INNER JOIN shopping.order_details od ON o.id = od.order_id WHERE YEAR(o.order_date) = YEAR(CURRENT_DATE) GROUP BY od.product_detail_id, od.price ORDER BY total_quantity DESC LIMIT 5", nativeQuery = true)
     List<Object[]> bestSaleByYear();
+
+
+
+      // Tìm chi tiết đơn hàng theo orderId
+      List<OrderDetail> findByOrderId(long orderId);
 }

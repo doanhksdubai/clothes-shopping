@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import vn.nhom18.shoppingclothes.domain.Product;
-import vn.nhom18.shoppingclothes.domain.ProductDetail;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -35,5 +34,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findById(long id);
 
     Optional<Product> findByProductDetailsId(long id);
+
+    Page<Product> findAll(Pageable pageable);
+
+    Page<Product> findByPriceBetween(double minPrice, double maxPrice, Pageable pageable);
 
 }

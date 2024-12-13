@@ -29,6 +29,31 @@
 
             <!-- Template Stylesheet -->
             <link href="${pageContext.request.contextPath}/css-user/style.css" rel="stylesheet" />
+            <style>
+                .pagination {
+                    margin: 20px 0;
+                    text-align: center;
+                }
+
+                .pagination a {
+                    display: inline-block;
+                    padding: 10px 15px;
+                    margin: 0 5px;
+                    border: 1px solid #ddd;
+                    color: #007bff;
+                    text-decoration: none;
+                }
+
+                .pagination a.active {
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                }
+
+                .pagination a:hover {
+                    background-color: #ddd;
+                }
+            </style>
         </head>
 
         <body>
@@ -57,13 +82,12 @@
                                         <label for="priceSort" class="form-label">Sắp xếp theo giá</label>
                                         <select name="priceSort" class="form-select">
                                             <option value="asc" ${param.priceSort=='asc' ? 'selected' : '' }>Từ thấp đến
-                                                cao
-                                            </option>
+                                                cao</option>
                                             <option value="desc" ${param.priceSort=='desc' ? 'selected' : '' }>Từ cao
-                                                đến
-                                                thấp</option>
+                                                đến thấp</option>
                                         </select>
                                     </div>
+
                                     <button type="submit" class="btn btn-primary">Lọc</button>
                                 </form>
                             </div>
@@ -90,6 +114,14 @@
                                     </div>
                                 </c:forEach>
                             </div>
+                        </div>
+                        <div class="pagination">
+                            <c:forEach var="i" begin="0" end="${totalPages - 1}">
+                                <a href="?page=${i}&size=9&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}&priceSort=${param.priceSort}"
+                                    class="${currentPage == i ? 'active' : ''}">
+                                    ${i + 1}
+                                </a>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

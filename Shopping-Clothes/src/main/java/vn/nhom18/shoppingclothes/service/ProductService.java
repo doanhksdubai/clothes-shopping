@@ -18,7 +18,7 @@ import vn.nhom18.shoppingclothes.repository.ColorRepository;
 import vn.nhom18.shoppingclothes.repository.ProductDetailRepository;
 import vn.nhom18.shoppingclothes.repository.ProductRepository;
 import vn.nhom18.shoppingclothes.repository.SizeRepository;
-
+import org.springframework.data.domain.Sort;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -196,6 +196,22 @@ public class ProductService {
             throw new IllegalArgumentException("Không tìm thấy chi tiết sản phẩm với ID: " + id);
         }
         productDetailRepository.deleteById(id);
+    }
+
+    // Phân trang sản phẩm
+    public Page<Product> getProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    // Lấy sản phẩm theo khoảng giá với sắp xếp
+    public Page<Product> getProductsByPriceRange(double minPrice, double maxPrice, String sortOrder,
+            Pageable pageable) {
+        if ("asc".equalsIgnoreCase(sortOrder)) {
+            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").ascending());
+        } else if ("desc".equalsIgnoreCase(sortOrder)) {
+            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").descending());
+        }
+        return productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
     }
 
 }

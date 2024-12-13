@@ -70,7 +70,7 @@
                   <ul class="dropdown-menu dropdown-menu-end p-4" aria-labelledby="dropdownMenuLink">
                     <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
                       <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
-                        src="/images/products/1732193890952-anh_sp.jpg" />
+                        src="${sessionScope.avatar}" />
                       <div class="text-center my-3">
                         <c:out value="${sessionScope.name}" />
                       </div>
@@ -78,7 +78,7 @@
 
                     <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
 
-                    <li><a class="dropdown-item" href="#">Lịch sử mua hàng</a></li>
+                    <li><a class="dropdown-item" href="/user/order-history">Lịch sử mua hàng</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
