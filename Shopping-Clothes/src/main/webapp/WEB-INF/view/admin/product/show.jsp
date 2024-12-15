@@ -29,6 +29,28 @@
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link href="/css/style-data.css" rel="stylesheet">
             <link href="/css/style.css" rel="stylesheet">
+            <style>
+                /* Thêm hiệu ứng chuyển động cho icon tìm kiếm */
+                button i {
+                    transition: transform 0.3s ease;
+                    /* Thêm hiệu ứng cho icon */
+                }
+
+                button:hover i {
+                    transform: scale(1.2);
+                    /* Tăng kích thước của icon khi hover */
+                }
+
+                /* Thêm hiệu ứng cho icon "Thêm sản phẩm" */
+                a i {
+                    transition: transform 0.3s ease;
+                }
+
+                a:hover i {
+                    transform: scale(1.2);
+                    /* Tăng kích thước của icon khi hover */
+                }
+            </style>
         </head>
 
         <body>
@@ -54,9 +76,24 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="card-title">Danh sách sản phẩm</h5>
-                                        <a class="btn btn-primary m-3 mb-2" href="/admin/product/create">Thêm sản
-                                            phẩm</a>
+                                        <div class="d-flex align-items-center">
+                                            <!-- Form tìm kiếm -->
+                                            <form action="/admin/product" method="get" class="d-flex">
+                                                <input type="text" class="form-control form-control-sm me-2"
+                                                    name="search" placeholder="Tìm kiếm sản phẩm" value="${search}">
+                                                <button class="btn btn-primary btn-sm" type="submit">
+                                                    <i class="bi bi-search"></i>
+                                                    <!-- Icon tìm kiếm từ Bootstrap Icons -->
+                                                </button>
+                                            </form>
+                                            <!-- Nút Thêm sản phẩm -->
+                                            <a class="btn btn-primary btn-sm ms-2" href="/admin/product/create">
+                                                <i class="bi bi-plus-circle"></i> Thêm sản phẩm
+                                            </a>
+                                        </div>
                                     </div>
+
+
 
                                     <!-- Table with stripped rows -->
                                     <table class="table">

@@ -45,8 +45,8 @@
                             <h1>Quản lý đơn hàng</h1>
                             <nav>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                                    <li class="breadcrumb-item"><a href="index.html">Quản lý</a></li>
+                                    <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+                                    <li class="breadcrumb-item"><a href="/admin/order">Quản lý</a></li>
                                     <li class="breadcrumb-item active">Quản lý đơn hàng</li>
                                 </ol>
                             </nav>

@@ -31,6 +31,39 @@
             <link href="/css/style-data.css" rel="stylesheet">
             <!-- Template Main CSS File -->
             <link href="/css/style.css" rel="stylesheet">
+            <style>
+                form .btn {
+                    height: auto;
+                    /* Đảm bảo chiều cao tự động khớp */
+                    line-height: 1.5;
+                    /* Điều chỉnh khoảng cách dòng */
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0.375rem 0.75rem;
+                    /* Cân chỉnh padding */
+                }
+
+                form .form-control {
+                    height: auto;
+                    /* Tự động điều chỉnh chiều cao */
+                }
+
+                .btn {
+                    white-space: nowrap;
+                    /* Ngăn chữ xuống dòng */
+                    display: inline-flex;
+                    /* Sắp xếp icon và text trên cùng dòng */
+                    align-items: center;
+                    /* Căn giữa nội dung theo chiều dọc */
+                    justify-content: center;
+                    /* Căn giữa nội dung theo chiều ngang */
+                    padding: 0.375rem 0.75rem;
+                    /* Điều chỉnh padding cho nút */
+                    gap: 0.25rem;
+                    /* Tạo khoảng cách nhỏ giữa icon và text */
+                }
+            </style>
         </head>
 
         <body>
@@ -54,11 +87,29 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title">Danh sách người dùng</h5>
-                                        <a class="btn btn-primary m-3 mb-2" href="/admin/user/create">Thêm người
-                                            dùng</a>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Danh sách người dùng</h5>
+                                        </div>
+                                        <div class="d-flex">
+                                            <!-- Form tìm kiếm -->
+                                            <form class="d-flex align-items-center" method="get" action="/admin/user">
+                                                <input type="text" class="form-control form-control-sm me-2"
+                                                    name="keyword" placeholder="Tìm kiếm..." value="${param.keyword}">
+                                                <button type="submit" class="btn btn-sm btn-primary ">
+                                                    <i class="bi bi-search me-1"></i> Tìm kiếm
+                                                </button>
+                                            </form>
+                                            <!-- Nút thêm người dùng -->
+                                            <a class="btn btn-sm btn-success ms-3 align-self-stretch d-flex align-items-center"
+                                                href="/admin/user/create">
+                                                <i class="bi bi-plus-circle me-1"></i> Thêm người dùng
+                                            </a>
+                                        </div>
                                     </div>
+
+
+
 
                                     <!-- Table with stripped rows -->
                                     <table class="table">

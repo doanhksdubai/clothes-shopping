@@ -39,13 +39,23 @@ public class UserController {
     public String getUserPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size,
+            @RequestParam(value = "keyword", required = false) String keyword,
             Model model) {
-        Page<User> userPage = this.userService.getUsersByPage(page, size);
+    
+        Page<User> userPage;
+        if (keyword != null && !keyword.isEmpty()) {
+            userPage = userService.searchUsersByKeyword(keyword, page, size);
+        } else {
+            userPage = userService.getUsersByPage(page, size);
+        }
+    
         model.addAttribute("users1", userPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("keyword", keyword);
         return "admin/user/show";
     }
+    
 
     @RequestMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {

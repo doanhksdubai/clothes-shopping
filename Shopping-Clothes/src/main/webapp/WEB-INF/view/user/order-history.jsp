@@ -147,6 +147,7 @@
                                 <th><i class="fas fa-money-bill"></i> Tổng giá</th>
                                 <th><i class="fas fa-info-circle"></i> Trạng thái</th>
                                 <th><i class="fas fa-eye"></i> Chi tiết</th>
+                                <th><i class="fas fa-trash"></i> Hủy</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -158,6 +159,18 @@
                                     <td>${order.status}</td>
                                     <td><a href="/user/order-history/${order.id}"><i class="fas fa-eye"></i> Xem chi
                                             tiết</a></td>
+                                    <td>
+                                        <c:if test="${order.status == 'Đang xử lý'}">
+                                            <form action="/user/order-history/delete/${order.id}" method="post">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                    value="${_csrf.token}" />
+                                                <button type="submit" class="btn"
+                                                    style="background-color: #f44336; border: none;">
+                                                    <i class="fas fa-trash"></i> Hủy
+                                                </button>
+                                            </form>
+                                        </c:if>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -15,21 +15,21 @@
 
             <!-- FontAwesome Icons -->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-            <!-- Icon Font Stylesheet -->
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
             <!-- Libraries Stylesheet -->
-            <link href="${pageContext.request.contextPath}/lib-user/lightbox/css/lightbox.min.css" rel="stylesheet" />
+            <link href="${pageContext.request.contextPath}/lib-user/lightbox/css/lightbox.min.css" rel="stylesheet">
             <link href="${pageContext.request.contextPath}/lib-user/owlcarousel/assets/owl.carousel.min.css"
-                rel="stylesheet" />
+                rel="stylesheet">
             <link href="${pageContext.request.contextPath}/lib-user/owlcarousel/assets/owl.theme.default.min.css"
                 rel="stylesheet">
+
             <!-- Customized Bootstrap Stylesheet -->
-            <link href="${pageContext.request.contextPath}/css-user/bootstrap.min.css" rel="stylesheet" />
+            <link href="${pageContext.request.contextPath}/css-user/bootstrap.min.css" rel="stylesheet">
 
             <!-- Template Stylesheet -->
-            <link href="${pageContext.request.contextPath}/css-user/style.css" rel="stylesheet" />
+            <link href="${pageContext.request.contextPath}/css-user/style.css" rel="stylesheet">
+
             <!-- Custom CSS -->
             <style>
                 body {
@@ -42,10 +42,7 @@
                 .container-category {
                     display: flex;
                     justify-content: space-between;
-                    /* Thêm khoảng cách giữa sidebar và content */
                     margin-top: 160px;
-                    max-width: 100%;
-
                 }
 
                 .content-category {
@@ -55,41 +52,42 @@
                     background-color: #ffffff;
                     border-radius: 10px;
                     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                    max-width: 100%;
-                    /* Giới hạn chiều rộng của content */
                 }
 
                 .sidebar {
                     flex: 0 0 250px;
-                    background-color: #ffffff;
-                    border: 1px solid #ddd;
-                    padding: 15px;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    background-color: #f8f9fa;
+                    border: none;
+                    padding: 20px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
                     border-radius: 10px;
                     height: fit-content;
                     position: sticky;
                     top: 20px;
+                    transition: all 0.3s ease;
                 }
 
-
                 .sidebar h3 {
-                    font-size: 20px;
-                    font-weight: 700;
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: #007bff;
                     text-align: center;
-                    margin-bottom: 15px;
+                    margin-bottom: 20px;
                 }
 
                 .sidebar .toggle-btn {
                     display: flex;
                     justify-content: center;
-                    margin-bottom: 10px;
+                    align-items: center;
+                    margin-bottom: 15px;
                     cursor: pointer;
                     background-color: #007bff;
-                    color: white;
+                    color: #fff;
                     padding: 10px;
                     border: none;
                     border-radius: 5px;
                     font-size: 16px;
+                    font-weight: bold;
                     transition: background-color 0.3s ease;
                 }
 
@@ -97,91 +95,115 @@
                     background-color: #0056b3;
                 }
 
-                .list-group-item {
-                    background: #ffffff;
-                    border: 1px solid #ddd;
-                    border-radius: 8px;
-                    margin-bottom: 10px;
-                    transition: 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    padding: 15px;
+                .list-group {
+                    padding: 0;
+                    list-style: none;
+                    margin: 0;
                 }
 
-                .list-group-item:hover {
-                    background-color: #007bff;
-                    color: white;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-                    transform: translateY(-2px);
+                .list-group-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: #fff;
+                    border: none;
+                    border-radius: 8px;
+                    margin-bottom: 10px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    padding: 15px 20px;
+                    color: #333;
+                    font-size: 16px;
+                    font-weight: 500;
+                    text-decoration: none;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
                 }
 
                 .list-group-item i {
-                    margin-right: 10px;
-                    font-size: 1.5em;
+                    font-size: 1.5rem;
                     color: #007bff;
-                    transition: 0.3s ease;
+                    transition: color 0.3s ease;
+                }
+
+                .list-group-item:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                    color: #fff;
+                    background-color: #007bff;
                 }
 
                 .list-group-item:hover i {
-                    color: white;
+                    color: #fff;
                 }
 
-                .list-group-item-action {
-                    font-weight: 500;
-                    font-size: 18px;
-                }
-
-
-
-                footer {
-                    text-align: center;
-                    margin-top: 50px;
-                    padding: 20px;
-                    background-color: #f1f1f1;
-                    color: #333;
-                }
-
-                /* Thêm màu cho danh mục đang chọn */
                 .list-group-item.active {
-                    background-color: #007bff;
-                    color: white;
-                }
-
-                .list-group-item.active:hover {
                     background-color: #0056b3;
                     color: white;
                 }
 
-                /* Thu nhỏ phần sản phẩm */
+                .list-group-item.active i {
+                    color: white;
+                }
+
+                .list-group-item.active:hover {
+                    background-color: #003f8a;
+                }
+
+                .sidebar .list-group {
+                    max-height: 600px;
+                    overflow-y: auto;
+                    scrollbar-width: thin;
+                    scrollbar-color: #007bff #f8f9fa;
+                }
+
+                .sidebar .list-group::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                .sidebar .list-group::-webkit-scrollbar-thumb {
+                    background-color: #007bff;
+                    border-radius: 10px;
+                }
+
+                .sidebar .list-group::-webkit-scrollbar-track {
+                    background-color: #f8f9fa;
+                }
+
                 .card {
-                    max-width: 300px;
-                    /* Giảm kích thước của card */
-                    margin: 0 auto;
-                    /* Căn giữa card */
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%;
                     border-radius: 8px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
                 }
 
                 .card-img-top {
                     max-height: 400px;
-                    /* Giảm kích thước của hình ảnh */
                     object-fit: cover;
-                    /* Đảm bảo hình ảnh không bị méo */
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
                 }
 
                 .card-body {
-                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    flex-grow: 1;
+                    text-align: center;
                 }
 
-                .card-title {
-                    font-size: 16px;
-                    /* Giảm kích thước tiêu đề */
-                    font-weight: 600;
+                .row.equal-height .col-md-3 {
+                    display: flex;
+                    flex-direction: column;
                 }
 
-                .card-text {
-                    font-size: 14px;
-                    /* Giảm kích thước mô tả */
+                .btn {
+                    align-self: center;
+                    margin-top: auto;
+                }
+
+                .pagination {
+                    justify-content: center;
                 }
             </style>
         </head>
@@ -193,24 +215,25 @@
             <div class="container-category">
                 <!-- Sidebar -->
                 <div class="sidebar">
-                    <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars" style="margin-top: 3px;"></i> Thu
-                        gọn</button>
-                    <div class=" list-group" id="category-list">
+                    <button class="toggle-btn" id="toggle-btn">
+                        <i class="fas fa-bars"></i> Thu gọn danh mục
+                    </button>
+                    <h3>Danh mục</h3>
+                    <div class="list-group" id="category-list">
                         <c:forEach var="category" items="${categories}">
                             <a href="${pageContext.request.contextPath}/categories/${category.id}/products?page=0"
-                                class="list-group-item list-group-item-action ${category.id == category.id ? 'active' : ''}">
-                                <i class="fas fa-folder"></i> ${category.name}
+                                class="list-group-item ${category.id == category.id ? 'active' : ''}">
+                                <i class="fas fa-tag"></i> ${category.name}
                             </a>
                         </c:forEach>
                     </div>
-
                 </div>
 
                 <!-- Main Content -->
                 <div class="content-category">
                     <h2>Sản phẩm trong danh mục: ${category.name}</h2>
                     <c:if test="${not empty products}">
-                        <div class="row">
+                        <div class="row equal-height">
                             <c:forEach var="product" items="${products}">
                                 <div class="col-md-3 mb-4">
                                     <div class="card">
@@ -220,15 +243,14 @@
                                             <p class="card-text">${product.shortDesc}</p>
                                             <p class="card-text"><strong>${product.price} VNĐ</strong></p>
                                             <a href="${pageContext.request.contextPath}/products/${product.id}"
-                                                class="btn btn-primary">Xem chi tiết</a>
-
+                                                class="btn btn-primary"><i class="fas fa-eye"></i>Xem chi tiết</a>
                                         </div>
                                     </div>
                                 </div>
                             </c:forEach>
                         </div>
                         <nav aria-label="Page navigation" style="text-align: center;">
-                            <ul class="pagination justify-content-center">
+                            <ul class="pagination">
                                 <c:forEach begin="0" end="${totalPages - 1}" var="i">
                                     <li class="page-item ${i == currentPage ? 'active' : ''}">
                                         <a class="page-link"
@@ -243,13 +265,12 @@
                         <p>Không có sản phẩm trong danh mục này.</p>
                     </c:if>
                 </div>
-
-
             </div>
 
-            <!-- Footer -->
+            <!-- Footer Include -->
             <jsp:include page="/WEB-INF/view/user/layout/footer.jsp" />
-            <!-- JavaScript Libraries -->
+
+            <!-- JavaScript -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
             <script src="${pageContext.request.contextPath}/lib-user/easing/easing.min.js"></script>
@@ -258,7 +279,10 @@
             <script src="${pageContext.request.contextPath}/lib-user/owlcarousel/owl.carousel.min.js"></script>
             <script src="${pageContext.request.contextPath}/js-user/main.js"></script>
 
-            <!-- JavaScript -->
+
+
+
+
             <script>
                 const toggleBtn = document.getElementById('toggle-btn');
                 const categoryList = document.getElementById('category-list');

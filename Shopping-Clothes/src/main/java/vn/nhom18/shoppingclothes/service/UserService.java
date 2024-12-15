@@ -31,8 +31,10 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public void handleSaveUser(User user) {
-        this.userRepository.save(user);
+    public User handleSaveUser(User user) {
+
+        User u = this.userRepository.save(user);
+        return u;
     }
 
     public Role getRoleByName(String name) {
@@ -64,6 +66,7 @@ public class UserService {
         user.setName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(registerDTO.getPassword());
+        user.setAddress(registerDTO.getAddress());
         return user;
     }
 
@@ -80,5 +83,10 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
+    public Page<User> searchUsersByKeyword(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findByKeyword(keyword, pageable);
+    }
+    
 
 }

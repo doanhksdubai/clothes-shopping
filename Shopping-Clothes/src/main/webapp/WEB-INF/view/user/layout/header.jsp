@@ -34,20 +34,32 @@
           <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
               <!-- Sửa link "Trang chủ" để dẫn đến /homepage -->
-              <a href="${pageContext.request.contextPath}/" class="nav-item nav-link">Trang chủ</a>
-              <!-- Sửa link "Danh Mục Sản Phẩm" để dẫn đến /categories -->
-              <a href="${pageContext.request.contextPath}/categories" class="nav-item nav-link">Danh Mục Sản Phẩm</a>
-              <a href="${pageContext.request.contextPath}/products" class="nav-item nav-link">Sản phẩm</a>
+              <a href="${pageContext.request.contextPath}/"
+                class="nav-item nav-link ${pageContext.request.requestURI == '/' ? 'active' : ''}">
+                <i class="fas fa-home"></i> Trang chủ
+              </a>
+              <a href="${pageContext.request.contextPath}/categories"
+                class="nav-item nav-link ${pageContext.request.requestURI == '/categories' ? 'active' : ''}">
+                <i class="fas fa-list"></i> Danh Mục Sản Phẩm
+              </a>
+              <a href="${pageContext.request.contextPath}/products"
+                class="nav-item nav-link ${pageContext.request.requestURI == '/products' ? 'active' : ''}">
+                <i class="fas fa-box"></i> Sản phẩm
+              </a>
+              <a href="/cart" class="nav-item nav-link ${pageContext.request.requestURI == '/cart' ? 'active' : ''}">
+                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+              </a>
+              <a href="contact.html"
+                class="nav-item nav-link ${pageContext.request.requestURI == '/contact.html' ? 'active' : ''}">
+                <i class="fas fa-envelope"></i> Liên hệ
+              </a>
 
-              <a href="/cart" class="nav-item nav-link">Giỏ hàng</a>
-              <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
+
+
             </div>
 
             <div class="d-flex m-3 me-0">
-              <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
-                data-bs-toggle="modal" data-bs-target="#searchModal">
-                <i class="fas fa-search text-primary"></i>
-              </button>
+
 
               <c:if test="${not empty pageContext.request.userPrincipal}">
 
@@ -104,24 +116,5 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content rounded-0">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Search by keyword
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body d-flex align-items-center">
-            <div class="input-group w-75 mx-auto d-flex">
-              <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" />
-              <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Single Page Header End -->

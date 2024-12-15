@@ -70,6 +70,7 @@ public class SecurityConfig {
                                 "/client/**", "/css/**", "/js/**", "/images/**", "css-user/**", "js-user/**",
                                 "lib-user/**")
                         .permitAll()
+                       
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 

@@ -289,7 +289,7 @@
                                                         <tr>
                                                             <th scope="col">ID</th>
                                                             <th scope="col">Khách hàng</th>
-                                                            <th scope="col">Giá</th>
+                                                            <th scope="col">Giá(VNĐ)</th>
                                                             <th scope="col">Ngày đặt</th>
                                                             <th scope="col">Trạng thái</th>
                                                         </tr>
@@ -304,18 +304,18 @@
                                                                 <td>
                                                                     <c:choose>
                                                                         <c:when
-                                                                            test="${items.status.toString() == 'COMPLETED'}">
+                                                                            test="${items.status.toString() == 'Đã giao'}">
                                                                             <span
-                                                                                class="badge bg-success">COMPLETED</span>
+                                                                                class="badge bg-success">Đã giao</span>
                                                                         </c:when>
                                                                         <c:when
-                                                                            test="${items.status.toString() == 'PENDING'}">
+                                                                            test="${items.status.toString() == 'Đang xử lý'}">
                                                                             <span
-                                                                                class="badge bg-warning">PENDING</span>
+                                                                                class="badge bg-warning">Đang xử lý</span>
                                                                         </c:when>
                                                                         <c:otherwise>
                                                                             <span
-                                                                                class="badge bg-danger">CANCELLED</span>
+                                                                                class="badge bg-danger">Đã hủy</span>
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                 </td>
@@ -355,9 +355,9 @@
                                                         <tr>
                                                             <th scope="col">STT</th>
                                                             <th scope="col">Sản phẩm</th>
-                                                            <th scope="col">Giá</th>
+                                                            <th scope="col">Giá(VNĐ)</th>
                                                             <th scope="col">Số lượng</th>
-                                                            <th scope="col">Revenue</th>
+                                                            <th scope="col">Tổng giá(VNĐ)</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

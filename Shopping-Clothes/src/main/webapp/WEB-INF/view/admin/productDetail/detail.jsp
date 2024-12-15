@@ -8,8 +8,6 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Quản lý chi tiết sản phẩm</title>
             <!-- Bootstrap CSS -->
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
             <!-- Favicons -->
             <link href="assets/img/favicon.png" rel="icon">
             <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -22,24 +20,53 @@
 
             <!-- Vendor CSS Files -->
             <link href="/css/bootstrap.min.css" rel="stylesheet">
-            <!-- Option 1: Include in HTML -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
             <link href="/css/boxicons.min.css" rel="stylesheet">
             <link href="/css/quill.snow.css" rel="stylesheet">
             <link href="/css/quill.bubble.css" rel="stylesheet">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link href="/css/style-data.css" rel="stylesheet">
-            <!-- Template Main CSS File -->
             <link href="/css/style.css" rel="stylesheet">
+            <style>
+                /* Đảm bảo các nút không xuống dòng */
+                .d-inline-flex {
+                    display: inline-flex;
+                    align-items: center;
+                }
+
+                .btn {
+                    white-space: nowrap;
+                    /* Đảm bảo nội dung nút không bị xuống dòng */
+                }
+
+                .form-control {
+                    max-width: 200px;
+                    /* Có thể điều chỉnh chiều rộng của ô input nếu cần */
+                }
+            </style>
         </head>
 
         <body>
             <jsp:include page="../layout/header.jsp" />
             <jsp:include page="../layout/sidebar.jsp" />
+
             <main id="main" class="main">
                 <div class="container mt-4">
                     <h1 class="mb-4">Quản lý chi tiết sản phẩm</h1>
-                    <a href="/admin/productDetail/create" class="btn btn-success mb-3">Thêm mới</a>
+                    <div class="d-flex justify-content-between mb-3">
+                        <!-- Form Tìm Kiếm -->
+                        <form action="/admin/productDetail" method="get" class="d-flex">
+                            <input type="text" name="search" class="form-control form-control-sm me-2"
+                                placeholder="Tìm kiếm sản phẩm" value="${search}">
+                            <button class="btn btn-primary btn-sm" type="submit">
+                                <i class="bi bi-search"></i> Tìm kiếm
+                            </button>
+                        </form>
+                        <!-- Nút Thêm Mới -->
+                        <a href="/admin/productDetail/create" class="btn btn-success btn-sm">
+                            <i class="bi bi-plus-circle"></i> Thêm mới
+                        </a>
+                    </div>
 
                     <!-- Bảng danh sách chi tiết sản phẩm -->
                     <table class="table table-bordered table-striped">
@@ -110,8 +137,6 @@
 
             <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
                     class="bi bi-arrow-up-short"></i></a>
-
-            <!-- Vendor JS Files -->
             <script src="/js/apexcharts.min.js"></script>
             <script src="/js/bootstrap.bundle.min.js"></script>
             <script src="/js/chart.umd.js"></script>
@@ -121,12 +146,8 @@
             <script src="/js/tinymce.min.js"></script>
             <script src="/js/validate.js"></script>
 
-            <!-- Template Main JS File -->
             <script src="/js/main.js"></script>
 
-            <!-- Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
         </body>
 
         </html>

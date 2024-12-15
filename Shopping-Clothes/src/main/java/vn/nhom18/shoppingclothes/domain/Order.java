@@ -1,10 +1,8 @@
 package vn.nhom18.shoppingclothes.domain;
 
 import java.time.LocalDateTime;
-<<<<<<< HEAD
+
 import java.util.ArrayList;
-=======
->>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -51,15 +49,11 @@ public class Order {
     private String receiverAddress;
     private String receiverPhone;
 
-<<<<<<< HEAD
+
 
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER) // Nạp tự động OrderDetails
     private List<OrderDetail> orderDetails = new ArrayList<>();
-=======
-    @OneToMany(mappedBy = "order")
-    private List<OrderDetail> orderDetails;
->>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
 
     public long getId() {
         return id;

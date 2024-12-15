@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +33,18 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String showHomePage(Model model) {
+    public String showHomePage(
+            Model model,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "16") int size) {
 
-        List<Product> products = productRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productRepository.findAllByOrderByCreateDateDesc(pageable);
 
-        model.addAttribute("products", products);
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("currentPage", productPage.getNumber());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("totalItems", productPage.getTotalElements());
 
         return "user/homepage";
     }

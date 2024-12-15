@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="order-manage.html">
+                        <a href="/admin/order">
                             <i class="bi bi-circle"></i><span>Quản lý đặt hàng</span>
                         </a>
                     </li>

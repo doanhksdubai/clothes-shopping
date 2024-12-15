@@ -16,6 +16,7 @@ import vn.nhom18.shoppingclothes.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
 @Controller
 public class ProductUserController {
 
@@ -46,45 +47,44 @@ public class ProductUserController {
     // public String showProducts(@RequestParam(required = false) Double minPrice,
     // @RequestParam(required = false) Double maxPrice,
     // @RequestParam(required = false) String priceSort,
+    // @RequestParam(defaultValue = "0") int page,
+    // @RequestParam(defaultValue = "12") int size,
     // Model model) {
-    // List<Product> products;
+    // Pageable pageable = PageRequest.of(page, size);
+    // Page<Product> productPage;
 
     // if (minPrice != null && maxPrice != null) {
-    // // Lọc sản phẩm theo khoảng giá
-    // if ("asc".equals(priceSort)) {
-    // products = productService.getProductsByPriceRange(minPrice, maxPrice, "asc");
-    // } else if ("desc".equals(priceSort)) {
-    // products = productService.getProductsByPriceRange(minPrice, maxPrice,
-    // "desc");
+    // productPage = productService.getProductsByPriceRange(minPrice, maxPrice,
+    // priceSort, pageable);
     // } else {
-    // products = productService.getProductsByPriceRange(minPrice, maxPrice, null);
+    // if ("asc".equalsIgnoreCase(priceSort)) {
+    // pageable = PageRequest.of(page, size, Sort.by("price").ascending());
+    // } else if ("desc".equalsIgnoreCase(priceSort)) {
+    // pageable = PageRequest.of(page, size, Sort.by("price").descending());
     // }
-    // } else {
-    // // Nếu không có khoảng giá, lấy tất cả sản phẩm
-    // if ("asc".equals(priceSort)) {
-    // products = productService.getAllProductsSortedByPrice("asc");
-    // } else if ("desc".equals(priceSort)) {
-    // products = productService.getAllProductsSortedByPrice("desc");
-    // } else {
-    // products = productService.fetchProducts();
-    // }
+    // productPage = productService.getProducts(pageable);
     // }
 
-    // model.addAttribute("products", products);
+    // model.addAttribute("products", productPage.getContent());
+    // model.addAttribute("currentPage", productPage.getNumber());
+    // model.addAttribute("totalPages", productPage.getTotalPages());
     // return "user/products";
     // }
 
     @GetMapping("/products")
     public String showProducts(@RequestParam(required = false) Double minPrice,
-                                @RequestParam(required = false) Double maxPrice,
-                                @RequestParam(required = false) String priceSort,
-                                @RequestParam(defaultValue = "0") int page,
-                                @RequestParam(defaultValue = "9") int size,
-                                Model model) {
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) String priceSort,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "12") int size,
+            Model model) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage;
 
-        if (minPrice != null && maxPrice != null) {
+        if (keyword != null && !keyword.isEmpty()) {
+            productPage = productService.getProductsByKeyword(keyword, pageable);
+        } else if (minPrice != null && maxPrice != null) {
             productPage = productService.getProductsByPriceRange(minPrice, maxPrice, priceSort, pageable);
         } else {
             if ("asc".equalsIgnoreCase(priceSort)) {
@@ -98,6 +98,7 @@ public class ProductUserController {
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("currentPage", productPage.getNumber());
         model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("keyword", keyword); // Truyền lại từ khóa để giữ giá trị trong form
         return "user/products";
     }
 

@@ -88,7 +88,7 @@ public class DashBoardController {
                 totalPrice = this.dashBoardService.HandleTotalPriceByWeek();
                 totalQuantity = this.dashBoardService.HandleTotalQuantityByWeek();
                 model.addAttribute("userByDay", userByDate);
-                model.addAttribute("Date", "Năm");
+                model.addAttribute("Date", "Tuần");
                 model.addAttribute("priceByDay", totalPrice / 1000000);
                 model.addAttribute("quantityByDay", totalQuantity);
                 break;
@@ -114,7 +114,7 @@ public class DashBoardController {
                     totalQuantity[i] = this.dashBoardService.HandleTotalQuantityByDayOfWeek(i);
                     xAxisLabels[i] = getDayOfWeekLabel(i);
                 }
-                model.addAttribute("Date", "Tuần");
+                model.addAttribute("Date1", "Tuần");
                 break;
             case "1":
                 userCountByDay = new int[31];
@@ -128,7 +128,7 @@ public class DashBoardController {
                     totalQuantity[i - 1] = this.dashBoardService.HandleTotalQuantityByDayOfMonth(i);
                     xAxisLabels[i - 1] = i + "";
                 }
-                model.addAttribute("Date", "Ngày");
+                model.addAttribute("Date1", "Ngày");
                 break;
             case "2":
                 userCountByDay = new int[12];
@@ -141,7 +141,7 @@ public class DashBoardController {
                     totalQuantity[i - 1] = this.dashBoardService.HandleTotalQuantityByDayMonthOfYear(i);
                     xAxisLabels[i - 1] = "Tháng " + i;
                 }
-                model.addAttribute("Date", "Tháng");
+                model.addAttribute("Date1", "Tháng");
                 break;
             case "3":
                 userCountByDay = new int[10];
@@ -156,7 +156,7 @@ public class DashBoardController {
                     xAxisLabels[index] = "Năm " + i;
                     index++;
                 }
-                model.addAttribute("Date", "Năm");
+                model.addAttribute("Date1", "Năm");
                 break;
             default:
                 break;
@@ -178,22 +178,22 @@ public class DashBoardController {
             case "1":
                 currentOrder = this.dashBoardService.HandleCurrentOrderByDay();
                 model.addAttribute("currentOrder", currentOrder);
-                model.addAttribute("Date", "Ngày");
+                model.addAttribute("Date2", "Ngày");
                 break;
             case "2":
                 currentOrder = this.dashBoardService.HandleCurrentOrderByMonth();
                 model.addAttribute("currentOrder", currentOrder);
-                model.addAttribute("Date", "Tháng");
+                model.addAttribute("Date2", "Tháng");
                 break;
             case "3":
                 currentOrder = this.dashBoardService.HandleCurrentOrderByYear();
                 model.addAttribute("currentOrder", currentOrder);
-                model.addAttribute("Date", "Năm");
+                model.addAttribute("Date2", "Năm");
                 break;
             case "4":
                 currentOrder = this.dashBoardService.HandleCurrentOrderByWeek();
                 model.addAttribute("currentOrder", currentOrder);
-                model.addAttribute("Date", "Tuần");
+                model.addAttribute("Date2", "Tuần");
                 break;
             default:
                 break;
@@ -206,19 +206,19 @@ public class DashBoardController {
         switch (date) {
             case "1":
                 results = this.dashBoardService.HandleBestSaleByDay();
-                model.addAttribute("Date", "Ngày");
+                model.addAttribute("Date3", "Ngày");
                 break;
             case "2":
                 results = this.dashBoardService.HandleBestSaleByMonth();
-                model.addAttribute("Date", "Tháng");
+                model.addAttribute("Date3", "Tháng");
                 break;
             case "3":
                 results = this.dashBoardService.HandleBestSaleByYear();
-                model.addAttribute("Date", "Năm");
+                model.addAttribute("Date3", "Năm");
                 break;
             case "4":
                 results = this.dashBoardService.HandleBestSaleByWeek();
-                model.addAttribute("Date", "Tuần");
+                model.addAttribute("Date3", "Tuần");
                 break;
             default:
                 break;
@@ -237,15 +237,16 @@ public class DashBoardController {
     }
 
     @GetMapping("/admin")
-    public String handleDashboard(Model model, @RequestParam(value = "date", required = false) String date)
+    public String handleDashboard(Model model,
+            @RequestParam(value = "date", defaultValue = "1") String date,
+            @RequestParam(value = "date1", defaultValue = "1") String date1,
+            @RequestParam(value = "date2", defaultValue = "1") String date2,
+            @RequestParam(value = "date3", defaultValue = "1") String date3)
             throws JsonProcessingException {
-        if (date == null) {
-            date = "1";
-        }
         getTotal(model, date);
-        populateDataForWeek(model, date);
-        top5CurrentOrder(model, date);
-        bestSaleProduct(model, date);
+        populateDataForWeek(model, date1);
+        top5CurrentOrder(model, date2);
+        bestSaleProduct(model, date3);
         return "admin/dashboard/show";
     }
 

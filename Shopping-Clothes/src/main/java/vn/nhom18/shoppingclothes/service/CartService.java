@@ -131,7 +131,7 @@ public class CartService {
                 order.setReceiverAddress(receiverAddress);
                 order.setReceiverPhone(receiverPhone);
                 order.setOrderDate(LocalDateTime.now());
-                order.setStatus("PENDING");
+                order.setStatus("Đang xử lý");
 
                 double sum = 0;
                 for (CartDetail cd : cartDetails) {

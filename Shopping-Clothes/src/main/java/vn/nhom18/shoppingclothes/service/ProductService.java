@@ -19,6 +19,7 @@ import vn.nhom18.shoppingclothes.repository.ProductDetailRepository;
 import vn.nhom18.shoppingclothes.repository.ProductRepository;
 import vn.nhom18.shoppingclothes.repository.SizeRepository;
 import org.springframework.data.domain.Sort;
+
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -214,4 +215,16 @@ public class ProductService {
         return productRepository.findByPriceBetween(minPrice, maxPrice, pageable);
     }
 
+    public Page<Product> getProductsByKeyword(String keyword, Pageable pageable) {
+        return productRepository.findByNameContainingIgnoreCase(keyword, pageable);
+    }
+
+    public Page<Product> searchProducts(String search, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findByNameContainingIgnoreCase(search, pageable);
+    }
+
+    public Page<ProductDetail> searchProductDetails(String search, Pageable pageable) {
+        return productDetailRepository.findByProductNameContainingOrSizeNameContainingOrColorNameContaining(search, search, search, pageable);
+    }
 }

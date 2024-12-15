@@ -17,8 +17,8 @@ public class UploadService {
         }
 
         // Đường dẫn đến thư mục trong static
-        // String rootPath = new File("target/classes/static/images").getAbsolutePath();
-        String rootPath = "src/main/resources/static/images"; // Chỉnh lại đường dẫn
+        String rootPath = new File("target/classes/static/images").getAbsolutePath();
+        // String rootPath = "src/main/resources/static/images"; // Chỉnh lại đường dẫn
         String finalName = "";
 
         try {

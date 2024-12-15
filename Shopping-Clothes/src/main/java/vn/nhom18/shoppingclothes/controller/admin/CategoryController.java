@@ -25,14 +25,23 @@ public class CategoryController {
     public String getCategoryPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size,
+            @RequestParam(value = "search", defaultValue = "") String search,
             Model model) {
-        Page<Category> categoryPage = categoryService.getCategories(page, size);
+
+        // Lọc danh mục theo từ khóa tìm kiếm
+        Page<Category> categoryPage;
+        if (search.isEmpty()) {
+            categoryPage = categoryService.getCategories(page, size); // Không có tìm kiếm
+        } else {
+            categoryPage = categoryService.searchCategories(search, page, size); // Có tìm kiếm
+        }
+
         model.addAttribute("categories", categoryPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", categoryPage.getTotalPages());
+        model.addAttribute("search", search); // Truyền giá trị tìm kiếm về giao diện
         return "admin/category/show";
     }
-    
 
     // Phương thức xóa danh mục
     @GetMapping("/admin/category/delete/{id}")

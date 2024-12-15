@@ -1,6 +1,5 @@
 package vn.nhom18.shoppingclothes.controller.admin;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
-import vn.nhom18.shoppingclothes.domain.Color;
+
 import vn.nhom18.shoppingclothes.domain.Product;
 import vn.nhom18.shoppingclothes.domain.ProductDetail;
-import vn.nhom18.shoppingclothes.domain.Size;
 import vn.nhom18.shoppingclothes.service.ProductService;
 import vn.nhom18.shoppingclothes.service.UploadService;
 
@@ -38,8 +36,18 @@ public class ProductController {
     public String getProductPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size,
+            @RequestParam(value = "search", required = false) String search,  // Thêm tham số tìm kiếm
             Model model) {
-        Page<Product> productPage = this.productService.fetchProducts(page, size);
+        
+        Page<Product> productPage;
+        
+        if (search != null && !search.isEmpty()) {
+            productPage = this.productService.searchProducts(search, page, size);  // Tìm sản phẩm theo từ khóa
+            model.addAttribute("search", search);  // Đưa từ khóa tìm kiếm vào model để giữ lại trong ô tìm kiếm
+        } else {
+            productPage = this.productService.fetchProducts(page, size);
+        }
+
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());

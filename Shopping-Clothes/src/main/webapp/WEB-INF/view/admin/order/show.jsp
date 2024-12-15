@@ -22,15 +22,59 @@
 
             <!-- Vendor CSS Files -->
             <link href="/css/bootstrap.min.css" rel="stylesheet">
-            <!-- Option 1: Include in HTML -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
             <link href="/css/boxicons.min.css" rel="stylesheet">
             <link href="/css/quill.snow.css" rel="stylesheet">
             <link href="/css/quill.bubble.css" rel="stylesheet">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
             <link href="/css/style-data.css" rel="stylesheet">
-            <!-- Template Main CSS File -->
             <link href="/css/style.css" rel="stylesheet">
+
+            <style>
+                /* Cải thiện kiểu dáng cho form tìm kiếm */
+                .form-inline {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .search-input {
+                    border-radius: 25px;
+                    padding: 10px;
+                    font-size: 14px;
+                    border: 1px solid #ccc;
+                    transition: all 0.3s ease;
+                    width: 300px;
+                    /* Chiếm toàn bộ không gian có sẵn */
+                }
+
+                /* Nút tìm kiếm */
+                .btn-search {
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 25px;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: background-color 0.3s ease;
+                }
+
+                /* Hiệu ứng hover cho nút */
+                .btn-search:hover {
+                    background-color: #0056b3;
+                    cursor: pointer;
+                }
+
+                /* Hiệu ứng focus cho input */
+                .search-input:focus {
+                    outline: none;
+                    border-color: #007bff;
+                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                }
+            </style>
         </head>
 
         <body>
@@ -42,24 +86,35 @@
                     <h1>Quản lý đơn hàng</h1>
                     <nav>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                            <li class="breadcrumb-item"><a href="index.html">Quản lý</a></li>
+                            <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/order">Quản lý</a></li>
                             <li class="breadcrumb-item active">Quản lý đơn hàng</li>
                         </ol>
                     </nav>
                 </div><!-- End Page Title -->
+
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger" role="alert">
                         ${error}
                     </div>
                 </c:if>
+
                 <section class="section">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between mb-3">
                                         <h5 class="card-title">Danh sách đơn hàng</h5>
+                                        <form action="/admin/order" method="get"
+                                            class="d-flex align-items-center form-inline">
+                                            <input type="text" id="search" name="search" value="${search}"
+                                                class="form-control search-input"
+                                                placeholder="Tìm kiếm đơn hàng (ví dụ: 'Đang giao')">
+                                            <button type="submit" class="btn btn-search ms-2">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                        </form>
                                     </div>
 
                                     <!-- Table with stripped rows -->
@@ -87,7 +142,8 @@
                                                     <td>${item.orderDate}</td>
                                                     <td class="text-center">${item.status}</td>
                                                     <td>
-                                                        <a class="btn btn-success" href="/admin/user/${user.id}">Xem</a>
+                                                        <a class="btn btn-success"
+                                                            href="/admin/order/${item.id}">Xem</a>
                                                         <a class="btn btn-warning"
                                                             href="/admin/order/update/${item.id}">Sửa</a>
                                                         <a class="btn btn-danger"
@@ -105,7 +161,6 @@
                                             <span>Trang hiện tại: ${currentPage + 1} / ${totalPages}</span>
                                         </div>
                                         <div>
-                                            <!-- Pagination Links -->
                                             <c:forEach var="i" begin="0" end="${totalPages - 1}">
                                                 <a class="btn btn-sm btn-outline-primary ${i == currentPage ? 'active' : ''}"
                                                     href="/admin/order?page=${i}">

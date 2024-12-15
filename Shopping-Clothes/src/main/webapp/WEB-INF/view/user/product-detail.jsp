@@ -224,6 +224,39 @@
                 .product-detail {
                     margin-top: 200px;
                 }
+
+                .add-to-cart-btn {
+                    display: flex;
+                    align-items: center;
+                    background-color: #28a745;
+                    /* Màu xanh lá cây */
+                    color: white;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 8px;
+                    transition: background-color 0.3s ease, transform 0.3s ease;
+                    cursor: pointer;
+                }
+
+                .add-to-cart-btn i {
+                    margin-right: 8px;
+                    /* Khoảng cách giữa icon và text */
+                    font-size: 20px;
+                    /* Kích thước icon */
+                }
+
+                .add-to-cart-btn:hover {
+                    background-color: #218838;
+                    /* Màu khi hover */
+                    transform: translateY(-3px);
+                    /* Hiệu ứng nổi lên khi hover */
+                }
+
+                .add-to-cart-btn:active {
+                    transform: translateY(1px);
+                    /* Hiệu ứng khi click */
+                }
             </style>
         </head>
 
@@ -267,7 +300,10 @@
 
                         <!-- Thêm các trường hidden để gửi thông tin cần thiết khi submit -->
                         <input type="hidden" id="productId" name="id" value="${product.id}">
-                        <button type="submit" class="add-to-cart-btn" id="addToCart">Add to Cart</button>
+                        <button type="submit" class="add-to-cart-btn" id="addToCart">
+                            <i class="fas fa-cart-plus"></i> Thêm vào giỏ hàng
+                        </button>
+
                         <p class="product-detail-description">Mô tả chi tiết: ${product.detailDesc}</p>
 
                         <!-- Image Gallery moved here -->

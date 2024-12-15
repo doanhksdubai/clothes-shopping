@@ -1,6 +1,5 @@
 package vn.nhom18.shoppingclothes.controller.admin;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
-import vn.nhom18.shoppingclothes.domain.Product;
 import vn.nhom18.shoppingclothes.domain.ProductDetail;
-import vn.nhom18.shoppingclothes.domain.Size;
-import vn.nhom18.shoppingclothes.domain.Color;
 import vn.nhom18.shoppingclothes.service.ProductService;
 import vn.nhom18.shoppingclothes.service.UploadService;
 
@@ -36,13 +32,22 @@ public class ProductDetailController {
     }
 
     @GetMapping("/admin/productDetail")
-    public String listProductDetails(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Pageable pageable = PageRequest.of(page, 5); // Số lượng sản phẩm mỗi trang là 10
-        Page<ProductDetail> productDetails = productService.getAllProductDetails(pageable);
+    public String listProductDetails(@RequestParam(value = "page", defaultValue = "0") int page,
+                                     @RequestParam(value = "search", required = false) String search,
+                                     Model model) {
+        Pageable pageable = PageRequest.of(page, 5); // Số lượng sản phẩm mỗi trang là 5
+
+        Page<ProductDetail> productDetails;
+        if (search != null && !search.isEmpty()) {
+            productDetails = productService.searchProductDetails(search, pageable);
+        } else {
+            productDetails = productService.getAllProductDetails(pageable);
+        }
 
         model.addAttribute("productDetails", productDetails);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productDetails.getTotalPages());
+        model.addAttribute("search", search); // Truyền từ khóa tìm kiếm về view để giữ lại khi form được gửi
         return "admin/productDetail/detail"; // Giao diện hiển thị danh sách
     }
 

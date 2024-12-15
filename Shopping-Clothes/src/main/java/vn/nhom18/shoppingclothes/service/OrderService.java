@@ -1,27 +1,20 @@
 package vn.nhom18.shoppingclothes.service;
 
 import java.util.List;
-<<<<<<< HEAD
-
-=======
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
->>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
 import org.springframework.stereotype.Service;
 
 import vn.nhom18.shoppingclothes.domain.Order;
 import vn.nhom18.shoppingclothes.domain.OrderDetail;
 import vn.nhom18.shoppingclothes.repository.OrderDetailRepository;
 import vn.nhom18.shoppingclothes.repository.OrderRepository;
-<<<<<<< HEAD
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-=======
 
->>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -32,22 +25,24 @@ public class OrderService {
         this.orderDetailRepository = orderDetailRepository;
     }
 
-<<<<<<< HEAD
-     // Lấy danh sách đơn hàng của người dùng (có phân trang)
-     public Page<Order> getOrdersByUserId(long userId, Pageable pageable) {
+    // Lấy danh sách đơn hàng của người dùng (có phân trang)
+    public Page<Order> getOrdersByUserId(long userId, Pageable pageable) {
         return orderRepository.findByUserId(userId, pageable);
     }
 
     // Lấy thông tin chi tiết của một đơn hàng theo orderId
     public Order getOrderById(long orderId, long userId) {
-        // Retrieve order by orderId and userId to ensure that the user can only view their own orders
+        // Retrieve order by orderId and userId to ensure that the user can only view
+        // their own orders
         return orderRepository.findByIdAndUserId(orderId, userId);
     }
+
     // Lấy chi tiết đơn hàng (order details) theo orderId
     public List<OrderDetail> getOrderDetailsByOrderId(long orderId) {
         // Retrieve all order details by orderId
         return orderDetailRepository.findByOrderId(orderId);
-=======
+    }
+
     public Page<Order> getOrdersByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return this.orderRepository.findAll(pageable);
@@ -78,6 +73,39 @@ public class OrderService {
         }
 
         this.orderRepository.deleteById(id);
->>>>>>> f16b0516171905ff2eb2705076d62df5de2cc437
+
     }
+
+    public void cancelOrder(long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        if ("Đang xử lý".equals(order.getStatus())) {
+            order.setStatus("Đã hủy");
+            orderRepository.save(order);
+        } else {
+            throw new RuntimeException("Không thể hủy đơn hàng");
+        }
+    }
+
+    public Page<Order> searchOrders(String search, String status, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (search != null && !search.isEmpty() && status != null && !status.isEmpty()) {
+            // Tìm kiếm theo cả trạng thái và từ khóa
+            return orderRepository
+                    .findByReceiverNameContainingIgnoreCaseOrReceiverPhoneContainingIgnoreCaseOrDiscountDescriptionContainingIgnoreCaseAndStatusContainingIgnoreCase(
+                            search, search, search, status, pageable);
+        } else if (search != null && !search.isEmpty()) {
+            // Tìm kiếm theo từ khóa
+            return orderRepository
+                    .findByReceiverNameContainingIgnoreCaseOrReceiverPhoneContainingIgnoreCaseOrDiscountDescriptionContainingIgnoreCase(
+                            search, search, search, pageable);
+        } else if (status != null && !status.isEmpty()) {
+            // Tìm kiếm theo trạng thái
+            return orderRepository.findByStatusContainingIgnoreCase(status, pageable);
+        } else {
+            // Trả về tất cả đơn hàng nếu không có tìm kiếm
+            return orderRepository.findAll(pageable);
+        }
+    }
+
 }

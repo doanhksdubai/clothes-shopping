@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,12 +27,10 @@ public class OrderHistoryController {
         this.orderService = orderService;
     }
 
-   
-   
     @GetMapping("/user/order-history")
     public String getOrderHistory(HttpServletRequest request, Model model,
-                                  @RequestParam(value = "page", defaultValue = "0") int page,
-                                  @RequestParam(value = "size", defaultValue = "5") int size) {
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
             return "redirect:/login";
@@ -48,25 +47,29 @@ public class OrderHistoryController {
         return "user/order-history";
     }
 
-   
     @GetMapping("/user/order-history/{orderId}")
     public String getOrderDetail(@PathVariable("orderId") long orderId, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
-            return "redirect:/login"; 
+            return "redirect:/login";
         }
 
-        long userId = (long) session.getAttribute("id"); 
+        long userId = (long) session.getAttribute("id");
 
-       
         Order order = orderService.getOrderById(orderId, userId);
         if (order == null) {
-            return "redirect:/user/order-history"; 
+            return "redirect:/user/order-history";
         }
 
         List<OrderDetail> orderDetails = orderService.getOrderDetailsByOrderId(orderId);
         model.addAttribute("order", order);
         model.addAttribute("orderDetails", orderDetails);
-        return "user/order-detail"; 
+        return "user/order-detail";
+    }
+
+    @PostMapping("/user/order-history/delete/{orderId}")
+    public String deleteOrder(@PathVariable("orderId") long orderId) {
+        orderService.cancelOrder(orderId);
+        return "redirect:/user/order-history"; 
     }
 }

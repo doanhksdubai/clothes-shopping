@@ -1,9 +1,9 @@
 package vn.nhom18.shoppingclothes.domain.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import vn.nhom18.shoppingclothes.service.validator.RegisterChecked;
-
 
 @RegisterChecked
 public class RegisterDTO {
@@ -17,6 +17,9 @@ public class RegisterDTO {
 
     @Size(min = 3, message = "mật khẩu phải có tổi thiểu 3 ký tự")
     private String confirmPassword;
+
+    @NotEmpty(message = "Địa chỉ không được để trống")
+    private String address;
 
     public String getFirstName() {
         return firstName;
@@ -56,6 +59,14 @@ public class RegisterDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

@@ -16,4 +16,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, Lo
     Optional<ProductDetail> findByProductIdAndColorIdAndSizeId(long productId, long colorId, long sizeId);
 
     Page<ProductDetail> findByProductId(long productId, Pageable pageable);
+
+    Page<ProductDetail> findByProductNameContainingOrSizeNameContainingOrColorNameContaining(
+        String productName, String sizeName, String colorName, Pageable pageable);
 }

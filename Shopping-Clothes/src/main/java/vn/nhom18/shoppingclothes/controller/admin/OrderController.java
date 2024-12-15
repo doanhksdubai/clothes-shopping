@@ -29,11 +29,37 @@ public class OrderController {
     public String getUserPage(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "5") int size,
+            @RequestParam(value = "search", required = false) String search,
             Model model) {
-        Page<Order> orderPage = this.orderService.getOrdersByPage(page, size);
+
+        String status = null;
+        if (search != null && !search.isEmpty()) {
+            // Kiểm tra nếu từ khóa tìm kiếm có chứa trạng thái
+            if (search.contains("Đang xử lý") || search.contains("Đang giao") || search.contains("Đã giao")
+                    || search.contains("Đã hủy")) {
+                // Tách trạng thái ra
+                if (search.contains("Đang xử lý")) {
+                    status = "Đang xử lý";
+                } else if (search.contains("Đang giao")) {
+                    status = "Đang giao";
+                } else if (search.contains("Đã giao")) {
+                    status = "Đã giao";
+                } else if (search.contains("Đã hủy")) {
+                    status = "Đã hủy";
+                }
+                // Tách phần từ khóa tìm kiếm
+                search = search.replace(status, "").trim();
+            }
+        }
+
+        // Tìm kiếm theo trạng thái và từ khóa
+        Page<Order> orderPage = this.orderService.searchOrders(search, status, page, size);
+
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", orderPage.getTotalPages());
+        model.addAttribute("search", search); // lưu từ khóa tìm kiếm
+        model.addAttribute("status", status); // lưu trạng thái tìm kiếm
         return "admin/order/show";
     }
 
@@ -56,7 +82,7 @@ public class OrderController {
         Optional<Order> orderOpOp = orderService.fetchOrderById(id);
         Order order = orderOpOp.get();
 
-        if (!"COMPLETE".equals(order.getStatus())) {
+        if (!"Đã giao".equals(order.getStatus()) && !"Đã hủy".equals(order.getStatus())) {
             redirectAttributes.addFlashAttribute("error", "Đơn hàng chưa hoàn thành. Không thể xóa!");
             return "redirect:/admin/order";
         }
@@ -70,5 +96,14 @@ public class OrderController {
     public String postDeleteOrder(@ModelAttribute("orderId") Order order) {
         this.orderService.deleteOrderById(order.getId());
         return "redirect:/admin/order";
+    }
+
+    @GetMapping("/admin/order/{id}")
+    public String getOrderDetailPage(Model model, @PathVariable long id) {
+        Order order = this.orderService.fetchOrderById(id).get();
+        model.addAttribute("id", id);
+        model.addAttribute("orderDetails", order.getOrderDetails());
+
+        return "admin/order/detail";
     }
 }

@@ -12,14 +12,25 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
     User findById(long id);
+
     void deleteById(long id);
-     // Tìm người dùng dựa trên email
-     User findByEmail(String email);  // Thêm phương thức này để tìm người dùng theo email
-     List<User> findOneByEmail(String email);
-     List<User> findAll();
-     Page<User> findAll(Pageable pageable); // Phương thức phân trang
+
+    // Tìm người dùng dựa trên email
+    User findByEmail(String email); // Thêm phương thức này để tìm người dùng theo email
+
+    List<User> findOneByEmail(String email);
+
+    List<User> findAll();
+
+    Page<User> findAll(Pageable pageable); // Phương thức phân trang
+
     boolean existsByEmail(String email); // Optional: Kiểm tra xem email đã tồn tại chưa
+
+    @Query("SELECT u FROM User u WHERE LOWER(u.email) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+            "OR LOWER(u.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    Page<User> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
     // lấy số lượng người dùng theo ngày
     @Query(value = "SELECT COUNT(*) FROM users WHERE DATE(create_date) = CURRENT_DATE", nativeQuery = true)
